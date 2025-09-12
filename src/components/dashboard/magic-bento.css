@@ -1,0 +1,88 @@
+
+:root {
+  --glow-color: hsl(270, 100%, 50%);
+  --glow-intensity: 0;
+  --glow-radius: 300px;
+  --glow-x: 50%;
+  --glow-y: 50%;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.card {
+  position: relative;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  color: hsl(var(--card-foreground));
+  border: 1px solid transparent;
+}
+
+.card--border-glow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    hsla(var(--glow-color), 0.6),
+    transparent
+  );
+  opacity: var(--glow-intensity);
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+.card__header {
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card__content {
+  position: relative;
+  z-index: 1;
+}
+
+.card--text-autohide .card__content {
+  transition: opacity 0.3s ease;
+}
+
+.card--text-autohide:hover .card__content {
+  opacity: 0.2;
+}
+
+.particle-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.global-spotlight {
+    position: fixed;
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 200;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+}
